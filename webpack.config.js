@@ -18,9 +18,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        use: ['babel-loader'],
       },
       {
         test: /\.html$/,
@@ -29,11 +27,6 @@ module.exports = {
             loader: 'html-loader',
           },
         ],
-      },
-      {
-        test: /\.jsx?$/,
-        use: ['babel-loader', 'stylelint-custom-processor-loader'],
-        exclude: /node_modules/,
       },
     ],
   },
@@ -48,5 +41,7 @@ module.exports = {
     historyApiFallback: true,
     compress: true,
     port: 3005,
+    open: true,
+    host: '192.168.31.101',
   },
 };
