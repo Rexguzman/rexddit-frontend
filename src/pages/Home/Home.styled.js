@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HomeContainer = styled.section`
-      text-align: center;
+  text-align: center;
   h2 {
     margin: 40px 0;
   }

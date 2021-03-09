@@ -16,28 +16,28 @@ export const loginRequest = (payload) => {
 };
 
 export const loginUser = ({ email, password }, redirectUrl) => (dispatch) => {
-    axios({
-      url: `${localUrl}/api/auth/sign-in`,
-      method: 'post',
-      auth: {
-        username: email,
-        password,
-      },
-    })
-      .then(({ data }) => {
-        sessionStorage.setItem('name', data.name);
-        sessionStorage.setItem('email', data.email);
-        sessionStorage.setItem('id', data.id);
-        sessionStorage.setItem('img', data.img);
-        sessionStorage.setItem('isLogged', Boolean('true'));
+  axios({
+    url: `${localUrl}/api/auth/sign-in`,
+    method: 'post',
+    auth: {
+      username: email,
+      password,
+    },
+  })
+    .then(({ data }) => {
+      sessionStorage.setItem('name', data.name);
+      sessionStorage.setItem('email', data.email);
+      sessionStorage.setItem('id', data.id);
+      sessionStorage.setItem('img', data.img);
+      sessionStorage.setItem('isLogged', Boolean('true'));
 
-        dispatch(loginRequest(data.user));
-      })
-      .then(() => {
-        window.location.href = redirectUrl;
-      })
-      .catch((error) => dispatch(setError(error)));
-  };
+      dispatch(loginRequest(data.user));
+    })
+    .then(() => {
+      window.location.href = redirectUrl;
+    })
+    .catch((error) => dispatch(setError(error)));
+};
 
 // ---> Logout
 export const logoutRequest = (payload) => {
@@ -58,14 +58,14 @@ export const registerRequest = (payload) => ({
 });
 
 export const registerUser = (payload, redirectUrl) => (dispatch) => {
-    axios
-      .post(`${localUrl}/api/auth/sign-up`, payload)
-      .then(({ data }) => dispatch(registerRequest(data)))
-      .then(() => {
-        window.location.href = redirectUrl;
-      })
-      .catch((error) => dispatch(setError(error)));
-  };
+  axios
+    .post(`${localUrl}/api/auth/sign-up`, payload)
+    .then(({ data }) => dispatch(registerRequest(data)))
+    .then(() => {
+      window.location.href = redirectUrl;
+    })
+    .catch((error) => dispatch(setError(error)));
+};
 
 export const addComment = (payload) => ({
   type: 'ADD_COMMENT',
@@ -73,15 +73,15 @@ export const addComment = (payload) => ({
 });
 
 export const addCommentRequest = (payload) => (dispatch) => {
-    axios({
-      url: `${localUrl}/api/channels/comment`,
-      method: 'put',
-      data: payload,
-    }).then(({ data }) => {
-      dispatch(addComment(data));
-      console.log(data);
-    });
-  };
+  axios({
+    url: `${localUrl}/api/channels/comment`,
+    method: 'put',
+    data: payload,
+  }).then(({ data }) => {
+    dispatch(addComment(data));
+    console.log(data);
+  });
+};
 
 export const addChannel = (payload) => ({
   type: 'ADD_CHANNEL',
@@ -89,14 +89,14 @@ export const addChannel = (payload) => ({
 });
 
 export const addChannelRequest = (payload, redirectUrl) => (dispatch) => {
-    axios({
-      url: `${localUrl}/api/channels`,
-      method: 'post',
-      data: payload,
-    }).then(() => {
-      window.location.href = redirectUrl;
-    });
-  };
+  axios({
+    url: `${localUrl}/api/channels`,
+    method: 'post',
+    data: payload,
+  }).then(() => {
+    window.location.href = redirectUrl;
+  });
+};
 
 export const setError = (payload) => ({
   type: 'SET_ERROR',
@@ -114,15 +114,15 @@ export const channelsListed = (payload) => ({
 });
 
 export const channelsRequest = (payload) => (dispatch) => {
-    axios({
-      url: `${localUrl}/api/channels`,
-      method: 'get',
+  axios({
+    url: `${localUrl}/api/channels`,
+    method: 'get',
+  })
+    .then(({ data }) => {
+      dispatch(channelsListed(data.data));
     })
-      .then(({ data }) => {
-        dispatch(channelsListed(data.data));
-      })
-      .catch((error) => dispatch(setError(error)));
-  };
+    .catch((error) => dispatch(setError(error)));
+};
 
 export const updateUserImg = (payload) => ({
   type: 'UPDATE_USER_IMG',
@@ -130,11 +130,11 @@ export const updateUserImg = (payload) => ({
 });
 
 export const updateUserImgRequest = (payload) => (dispatch) => {
-    axios({
-      url: `${localUrl}/api/user/update-img`,
-      method: 'put',
-      data: payload,
-    }).then(({ data }) => {
-      dispatch(updateUserImg(data));
-    });
-  };
+  axios({
+    url: `${localUrl}/api/user/update-img`,
+    method: 'put',
+    data: payload,
+  }).then(({ data }) => {
+    dispatch(updateUserImg(data));
+  });
+};

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect ,useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RegisterContainer, RegisterStyled } from './Register.styled';
@@ -30,25 +30,22 @@ const Register = (props) => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-      if (error) {
-          setLoading(false);
-          setIsError(true);
-      }
+    if (error) {
+      setLoading(false);
+      setIsError(true);
+    }
   }, [error]);
 
   const handleAcceptError = () => {
-      setIsError(false);
-      deleteError();
+    setIsError(false);
+    deleteError();
   };
 
   return (
     <RegisterContainer>
       {isError ? (
-                <DeleteAlert
-                    isError={isError}
-                    handleAcceptError={handleAcceptError}
-                />
-            ) : null}
+        <DeleteAlert isError={isError} handleAcceptError={handleAcceptError} />
+      ) : null}
       <RegisterStyled>
         <h1>Registro</h1>
         <form ref={form}>
@@ -81,8 +78,8 @@ const Register = (props) => {
 const mapStateToProps = (state) => {
   return {
     error: state.error,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = {
   registerUser,
