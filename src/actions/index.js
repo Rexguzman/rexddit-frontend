@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
 
-const localUrl = config.apiLocalUrl;
+const localUrl = config.apiProductionUrl;
 
 // ---> Login
 export const loginRequest = (payload) => {
