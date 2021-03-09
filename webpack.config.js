@@ -42,6 +42,6 @@ module.exports = {
     compress: true,
     port: 3005,
     open: true,
-    host: '192.168.31.101',
+    //host: '192.168.31.101',
   },
 };
