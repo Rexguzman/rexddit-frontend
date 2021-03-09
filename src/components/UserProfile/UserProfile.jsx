@@ -43,7 +43,8 @@ const UserProfile = (props) => {
               setLoading(false);
               handleUpdateUserImgRequest(url);
             });
-        }
+            setLoading(false);
+          }
       );
     } else {
       console.log('error');
@@ -64,6 +65,13 @@ const UserProfile = (props) => {
       <div className="profile-img">
         {user.img == null ? (
           <figure className="autor-img">
+            {loading ? (
+              <div className="loadin-container">
+                <Loading />
+              </div>
+            ) : (
+              ''
+            )}
             <svg width="180" height="180" viewBox="0 0 496 512">
               <path
                 fill="currentColor"
@@ -73,6 +81,13 @@ const UserProfile = (props) => {
           </figure>
         ) : (
           <figure className="autor-img">
+            {loading ? (
+              <div className="loadin-container">
+                <Loading />
+              </div>
+            ) : (
+              ''
+            )}
             <img src={user.img} alt="" />
           </figure>
         )}

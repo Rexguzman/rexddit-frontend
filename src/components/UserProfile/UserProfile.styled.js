@@ -59,4 +59,16 @@ export const UserProfileContainer = styled.section`
   input[type='file'] {
     display: none;
   }
+  .loadin-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);;
+    border-radius: 50%;
+  }
 `;

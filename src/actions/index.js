@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
 
-const localUrl = config.apiProductionUrl;
+const localUrl = config.apiLocalUrl;
 
 // ---> Login
 export const loginRequest = (payload) => {
@@ -146,6 +146,7 @@ export const updateUserImgRequest = (payload) => (dispatch) => {
     headers: { authorization: `Bearer ${sessionStorage.getItem('token')}` },
     withCredentials: true,
   }).then(({ data }) => {
+    sessionStorage.setItem('img', data.img)
     dispatch(updateUserImg(data));
   });
 };
