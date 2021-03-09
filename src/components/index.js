@@ -1,1 +1,12 @@
-export {default as Header} from './Header'
+export { default as Header } from './Header';
+export { default as Footer } from './Footer';
+export { default as SearchBar } from './SearchBar';
+export { default as Channels } from './Channels';
+export { default as Channel } from './Channel';
+export { default as Comments } from './Comments';
+export { default as Comment } from './Comment';
+export { default as CommentInput } from './CommentInput';
+export { default as CreateChannelForm } from './CreateChannelForm';
+export { default as UserProfile } from './UserProfile';
+export { default as Loading } from './Loading';
+export { default as DeleteAlert } from './DeleteAlert';
