@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { addCommentRequest } from '../../actions';
 
@@ -7,37 +7,47 @@ import { CommentInputContainer } from './CommentInput.styled';
 const CommentInput = (props) => {
   const { user, addCommentRequest, id } = props;
 
-  const form = useRef(null);
+  const [form, setValues] = useState({
+    id: id,
+    comment: '',
+    autor: user.name,
+    autorImg: user.img,
+  });
+  const handleInput = (event) => {
+    setValues({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(form.current);
-    const commentForm = {
+    addCommentRequest(form);
+    setValues({
       id: id,
-      comment: formData.get('comment'),
+      comment: '',
       autor: user.name,
       autorImg: user.img,
-    };
-    addCommentRequest(commentForm);
+    });
   };
 
   return user.isLogged ? (
     <CommentInputContainer isLogged={user.isLogged}>
-      <form ref={form}>
+      <form onSubmit={handleSubmit}>
         <h4>Escribe un comentario: </h4>
         <textarea
+          id="comment"
           rows="8"
           className="input_description"
           name="comment"
           type="text"
           role="textbox"
+          onChange={handleInput}
           aria-multiline="true"
           placeholder="click aquí para empezar a escribir"
           required
         />
-        <button type="submit" onClick={handleSubmit}>
-          Comentar
-        </button>
+        <button type="submit">Comentar</button>
       </form>
     </CommentInputContainer>
   ) : (

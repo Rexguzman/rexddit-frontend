@@ -22,6 +22,8 @@ const Register = (props) => {
       name: formData.get('name'),
       email: formData.get('email'),
       password: formData.get('password'),
+      img:
+        'https://firebasestorage.googleapis.com/v0/b/rexddit.appspot.com/o/images%2Fuser-circle-solid-white.svg?alt=media&token=f7d4ed70-713e-41ae-827e-87d5038abc9a',
     };
     registerUser(registerForm, '/login');
   };

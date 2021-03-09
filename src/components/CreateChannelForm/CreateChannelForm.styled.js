@@ -121,4 +121,9 @@ export const CreateChannelFormContainer = styled.section`
   input[type='file']::-webkit-file-upload-button:focus {
     outline: none;
   }
+  .error-alert {
+    position: absolute;
+    color: red;
+    width: 60%;
+  }
 `;

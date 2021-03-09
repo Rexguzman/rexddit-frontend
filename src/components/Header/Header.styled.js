@@ -4,7 +4,7 @@ export const HeaderContainer = styled.header`
   background-color: #2680c1;
   color: white;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 
   nav {
     display: flex;
@@ -58,7 +58,7 @@ export const MenuContainer = styled.nav`
   width: 100%;
   transform: ${({ open }) => (open ? 'translateY(0)' : 'translateY(-190px)')};
   transition: all 0.25s linear;
-  z-index: 0;
+  z-index: 1;
   margin: 20px 0;
 
   div {

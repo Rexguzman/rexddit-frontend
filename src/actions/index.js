@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
 
-const localUrl = config.apiProductionUrl;
+const localUrl = config.apiLocalUrl;
 
 // ---> Login
 export const loginRequest = (payload) => {
@@ -25,12 +25,13 @@ export const loginUser = ({ email, password }, redirectUrl) => (dispatch) => {
     },
   })
     .then(({ data }) => {
-      sessionStorage.setItem('name', data.name);
-      sessionStorage.setItem('email', data.email);
-      sessionStorage.setItem('id', data.id);
-      sessionStorage.setItem('img', data.img);
+      sessionStorage.setItem('name', data.user.name);
+      sessionStorage.setItem('email', data.user.email);
+      sessionStorage.setItem('id', data.user.id);
+      sessionStorage.setItem('img', data.user.img);
       sessionStorage.setItem('isLogged', Boolean('true'));
-
+      sessionStorage.setItem('token', data.token);
+      console.log(data);
       dispatch(loginRequest(data.user));
     })
     .then(() => {
@@ -77,6 +78,8 @@ export const addCommentRequest = (payload) => (dispatch) => {
     url: `${localUrl}/api/channels/comment`,
     method: 'put',
     data: payload,
+    headers: { authorization: `Bearer ${sessionStorage.getItem('token')}` },
+    withCredentials: true,
   }).then(({ data }) => {
     dispatch(addComment(data));
     console.log(data);
@@ -93,9 +96,15 @@ export const addChannelRequest = (payload, redirectUrl) => (dispatch) => {
     url: `${localUrl}/api/channels`,
     method: 'post',
     data: payload,
-  }).then(() => {
-    window.location.href = redirectUrl;
-  });
+    headers: { authorization: `Bearer ${sessionStorage.getItem('token')}` },
+    withCredentials: true,
+  })
+    .then(() => {
+      window.location.href = redirectUrl;
+    })
+    .catch((error) => {
+      dispatch(setError(error));
+    });
 };
 
 export const setError = (payload) => ({
@@ -134,6 +143,8 @@ export const updateUserImgRequest = (payload) => (dispatch) => {
     url: `${localUrl}/api/user/update-img`,
     method: 'put',
     data: payload,
+    headers: { authorization: `Bearer ${sessionStorage.getItem('token')}` },
+    withCredentials: true,
   }).then(({ data }) => {
     dispatch(updateUserImg(data));
   });

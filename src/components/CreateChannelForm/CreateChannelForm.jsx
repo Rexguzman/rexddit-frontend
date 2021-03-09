@@ -2,13 +2,13 @@ import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { CreateChannelFormContainer } from './CreateChannelForm.styled';
 
-import { addChannelRequest, updateUserImg } from '../../actions';
+import { addChannelRequest, updateUserImg, deleteError } from '../../actions';
 
 import { storage } from '../../firebase';
 import { Loading } from '..';
 
 const CreateChannelForm = (props) => {
-  const { addChannelRequest, user } = props;
+  const { addChannelRequest, user, error, deleteError } = props;
 
   //----> Firebase upload img
   const [image, setImage] = useState(null);
@@ -67,14 +67,21 @@ const CreateChannelForm = (props) => {
   return (
     <CreateChannelFormContainer>
       <form ref={form}>
-        <button type="submit" onClick={handleSubmit}>
-          Crear Canal
-        </button>
+        <button onClick={handleSubmit}>Crear Canal</button>
+        {error ? (
+          <h4 className="error-alert">
+            ⚠ debes completar todos los campos y subir una imagen de portada
+          </h4>
+        ) : (
+          ''
+        )}
         <input
           className="title-input"
           type="text"
           placeholder="Nombre del canal"
           name="name"
+          required
+          autoComplete="off"
         />
         <textarea
           rows="8"
@@ -88,7 +95,7 @@ const CreateChannelForm = (props) => {
         ></textarea>
       </form>
       <div className="upload-file-container">
-        <input type="file" onChange={handleChange} />
+        <input type="file" onChange={handleChange} required />
         {loading ? <Loading /> : ''}
         {uploadCompleted ? (
           <figure>
@@ -118,11 +125,13 @@ const CreateChannelForm = (props) => {
 const mapDispatchToProps = {
   addChannelRequest,
   updateUserImg,
+  deleteError,
 };
 
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    error: state.error,
   };
 };
 

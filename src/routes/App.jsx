@@ -14,8 +14,6 @@ import {
 } from '../pages';
 
 const App = ({ user }) => {
-  console.log(user);
-
   return (
     <BrowserRouter>
       <Layout>

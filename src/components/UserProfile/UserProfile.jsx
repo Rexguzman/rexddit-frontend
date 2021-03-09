@@ -14,7 +14,6 @@ const UserProfile = (props) => {
     (channel) => channel.autorId == user.id
   ).length;
 
-  console.log(userChannelsLength);
   //----> Firebase upload img
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState('');
@@ -25,10 +24,9 @@ const UserProfile = (props) => {
       setImage(e.target.files[0]);
     }
   };
-  console.log(url);
   useEffect(() => {
     if (image) {
-      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      const uploadTask = storage.ref(`images/${image.name}`).put(image, {});
       uploadTask.on(
         'state_changed',
         setLoading(true),
@@ -58,7 +56,6 @@ const UserProfile = (props) => {
       email: user.email,
       img: url,
     };
-    console.log(updateUserData);
     updateUserImgRequest(updateUserData);
   };
 
